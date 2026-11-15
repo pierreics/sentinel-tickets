@@ -4,6 +4,7 @@ import jsonwebtoken from "jsonwebtoken";
 
 const register = async (req, res) => {
   const { username, password, role } = req.body;
+  const userRole = role || "user";
   if (!username || !password) {
     return res.status(400).json({
       success: false,
@@ -13,7 +14,7 @@ const register = async (req, res) => {
   const hashpassword = await bcrypt.hash(password, 10);
   const query =
     "INSERT INTO users (username, password, role) VALUES ( ?, ?, ?)";
-  db.run(query, [username, hashpassword, role], (err) => {
+  db.run(query, [username, hashpassword, userRole], (err) => {
     if (err) {
       if (err.message.includes("UNIQUE")) {
         return res.status(409).json({
@@ -47,7 +48,7 @@ const login = (req, res) => {
     if (!row) {
       return res.status(401).json({
         success: false,
-        errorr: "invalid credentials",
+        error: "invalid credentials",
       });
     }
     const esito = await bcrypt.compare(password, row.password);
@@ -59,9 +60,9 @@ const login = (req, res) => {
     }
     const jwt = jsonwebtoken.sign(
       {
-        id: user.id,
-        username: user.username,
-        role: user.role,
+        id: row.id,
+        username: row.username,
+        role: row.role,
       },
       process.env.JWT_SECRET,
       {
