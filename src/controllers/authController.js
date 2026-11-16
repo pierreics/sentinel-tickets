@@ -55,7 +55,7 @@ const login = (req, res) => {
     if (!esito) {
       return res.status(401).json({
         success: false,
-        errorr: "invalid credentials",
+        error: "invalid credentials",
       });
     }
     const jwt = jsonwebtoken.sign(

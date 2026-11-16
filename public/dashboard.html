@@ -1,0 +1,58 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Sentinel Ticekts dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><strong>Sentinel Tickets</strong></li>
+        </ul>
+        <ul>
+          <li><button id="logout-btn" class="secondary">Logout</button></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <article>
+        <form id="search-form">
+          <input type="search" id="search-input" placeholder="search Ticket" />
+          <button type="submit">Search</button>
+        </form>
+        <h2>Nuovo ticket</h2>
+        <form id="ticket-form">
+          <input
+            type="text"
+            id="ticket-title"
+            placeholder="ticket title"
+            required
+          />
+          <textarea
+            type="text"
+            id="ticket-description"
+            placeholder="ticket description"
+            rows="3"
+            required
+          ></textarea>
+          <label
+            ><input type="checkbox" id="is_confidential" />Confidential
+            Ticket</label
+          >
+          <button id="sendTicket-btn" type="submit">Send Ticket</button>
+        </form>
+        <p id="message"></p>
+      </article>
+      <article>
+        <h2>Your tickets</h2>
+        <div id="ticket-list"></div>
+      </article>
+    </main>
+    <script src="./dashboard.js"></script>
+  </body>
+</html>
