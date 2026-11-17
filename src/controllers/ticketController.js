@@ -88,8 +88,8 @@ const getTicketById = (req, res) => {
 
 const searchTickets = (req, res) => {
   const q = req.query.q;
-  const query = `SELECT * FROM tickets WHERE is_confidential = 0 AND title LIKE '%${q}%'`;
-  db.all(query, [], (err, rows) => {
+  const query = `SELECT * FROM tickets WHERE is_confidential = 0 AND user_id = ? AND title LIKE '%${q}%'`;
+  db.all(query, [req.user.id], (err, rows) => {
     if (err) {
       return res.status(500).json({
         success: false,
